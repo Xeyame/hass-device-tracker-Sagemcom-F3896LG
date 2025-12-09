@@ -8,19 +8,19 @@ from .coordinator import RouterCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = "router_tracker"
+DOMAIN = "F3896LG_devicetracker"
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Set up the router_tracker component."""
-    _LOGGER.debug("router_tracker async_setup called")
+    """Set up the F3896LG_devicetracker component."""
+    _LOGGER.debug("F3896LG_devicetracker async_setup called")
     hass.data.setdefault(DOMAIN, {})
     return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up router_tracker from a config entry."""
-    _LOGGER.debug("Setting up entry %s for router_tracker", entry.title)
+    """Set up F3896LG_devicetracker from a config entry."""
+    _LOGGER.debug("Setting up entry %s for F3896LG_devicetracker", entry.title)
 
     coordinator = RouterCoordinator(
         hass,
@@ -40,9 +40,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     dev_reg.async_get_or_create(
         config_entry_id=entry.entry_id,
         identifiers={(DOMAIN, f"router-{entry.entry_id}")},
-        manufacturer="Router Tracker",
-        name=f"Router {entry.data['host']}",
-        model="Home Router",
+        manufacturer="Sagemcom",
+        name=f"Sagemcom F3896LG",
+        model="F3896LG",
         configuration_url=f"http://{entry.data['host']}",
     )
 

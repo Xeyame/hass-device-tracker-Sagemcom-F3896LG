@@ -38,7 +38,7 @@ class RouterCoordinator(DataUpdateCoordinator):
         super().__init__(
             hass,
             _LOGGER,
-            name="router_tracker",
+            name="F3896LG_devicetracker",
             update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
         )
 

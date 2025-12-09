@@ -1,4 +1,4 @@
-DOMAIN = "router_tracker"
+DOMAIN = "F3896LG_devicetracker"
 
 DEFAULT_SCAN_INTERVAL = 60  # seconds
 

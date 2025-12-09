@@ -10,11 +10,11 @@ from .coordinator import RouterCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = "router_tracker"
+DOMAIN = "F3896LG_devicetracker"
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
-    """Set up router_tracker device_tracker with dynamic discovery."""
+    """Set up F3896LG_devicetracker device_tracker with dynamic discovery."""
     coordinator: RouterCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     tracked_macs: set[str] = set()

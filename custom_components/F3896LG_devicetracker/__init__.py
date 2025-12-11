@@ -10,6 +10,8 @@ _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = "F3896LG_devicetracker"
 
+PLATFORMS = ["device_tracker", "button"]
+
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the F3896LG_devicetracker component."""
@@ -33,7 +35,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data[DOMAIN][entry.entry_id] = coordinator
 
     #
-    # ?? Create router device in registry (parent device)
+    # Create router device in registry (parent device)
     #
     dev_reg = dr.async_get(hass)
 
@@ -41,18 +43,22 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         config_entry_id=entry.entry_id,
         identifiers={(DOMAIN, f"router-{entry.entry_id}")},
         manufacturer="Sagemcom",
-        name=f"Sagemcom F3896LG",
+        name="Sagemcom F3896LG",
         model="F3896LG",
         configuration_url=f"http://{entry.data['host']}",
     )
 
-    await hass.config_entries.async_forward_entry_setups(entry, ["device_tracker"])
+    #
+    # Load both platforms: device_tracker + button
+    #
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload config entry."""
-    coordinator = hass.data[DOMAIN].pop(entry.entry_id)
+    coordinator: RouterCoordinator = hass.data[DOMAIN].pop(entry.entry_id)
     await coordinator.session.close()
 
-    return await hass.config_entries.async_unload_platforms(entry, ["device_tracker"])
+    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
